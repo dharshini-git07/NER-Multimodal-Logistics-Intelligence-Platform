@@ -1,0 +1,7 @@
+{
+  "name": "NER-SETU RouteGuard AI",
+  "description": "AI-Powered Smart Logistics & Multimodal Route Intelligence for North Eastern Region (NER)",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
