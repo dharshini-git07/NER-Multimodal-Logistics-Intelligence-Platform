@@ -3,5 +3,8 @@
 node_modules
 dist
 repo_inspect
+backend/ml_engine
+*.joblib
+*.csv
 ner_logistics.db
 *.log

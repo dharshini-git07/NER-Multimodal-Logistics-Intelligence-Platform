@@ -1,18 +1,29 @@
 import os
-import joblib
-import numpy as np
-import pandas as pd
 from typing import Dict, Any, List
 from backend.app.core.config import settings
+
+try:
+    import joblib
+    import pandas as pd
+    HAS_ML_DEPS = True
+except ImportError:
+    joblib = None
+    pd = None
+    HAS_ML_DEPS = False
 
 class AIPredictorService:
     def __init__(self):
         self.classifier = None
         self.regressor = None
         self.model_loaded = False
-        self._load_models()
+        if HAS_ML_DEPS:
+            self._load_models()
 
     def _load_models(self):
+        if not HAS_ML_DEPS:
+            self.model_loaded = False
+            return
+            
         clf_path = os.path.join(settings.MODEL_DIR, "ner_disruption_classifier.joblib")
         reg_path = os.path.join(settings.MODEL_DIR, "ner_clearance_regressor.joblib")
         
