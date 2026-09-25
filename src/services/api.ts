@@ -30,9 +30,11 @@ import {
   DEFAULT_ANALYTICS
 } from './seedData';
 
-// Keep deployment configuration outside source. The local default points at
-// FastAPI directly, so simulation does not depend on the Vite proxy running.
-export const API_BASE = (import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000/api/v1').replace(/\/$/, '');
+// Keep deployment configuration outside source.
+export const API_BASE = (
+  import.meta.env.VITE_API_BASE_URL ||
+  (import.meta.env.DEV ? 'http://127.0.0.1:8000/api/v1' : '/api/v1')
+).replace(/\/$/, '');
 
 export const getApiErrorMessage = (error: unknown, action: string): string => {
   if (axios.isAxiosError(error)) {
