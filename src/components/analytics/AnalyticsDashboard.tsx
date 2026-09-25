@@ -98,40 +98,40 @@ export const AnalyticsDashboard: React.FC = () => {
         </button>
       </div>
 
-      {/* KPI Cards Row (4 Columns in Lap / Desktop View) */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
-          <span className="text-slate-600 text-xs font-semibold flex items-center gap-1.5 mb-1">
+      {/* KPI Cards Row */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 shadow-xs">
+          <span className="text-slate-700 text-xs font-bold flex items-center gap-1.5 mb-1.5 uppercase">
             <CheckCircle className="w-4 h-4 text-emerald-600" /> Safe Reroute Success
           </span>
-          <div className="text-2xl font-extrabold text-emerald-700 font-mono">
+          <div className="text-2xl sm:text-3xl font-black text-emerald-700 font-mono">
             {kpis.freight_safely_rerouted_pct ?? 98.4}%
           </div>
         </div>
 
-        <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
-          <span className="text-slate-600 text-xs font-semibold flex items-center gap-1.5 mb-1">
-            <Clock className="w-4 h-4 text-blue-600" /> Transit Delays Averted
+        <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 shadow-xs">
+          <span className="text-slate-700 text-xs font-bold flex items-center gap-1.5 mb-1.5 uppercase">
+            <Clock className="w-4 h-4 text-blue-600" /> Delays Averted
           </span>
-          <div className="text-2xl font-extrabold text-blue-700 font-mono">
+          <div className="text-2xl sm:text-3xl font-black text-blue-700 font-mono">
             {(kpis.estimated_freight_delay_prevented_hrs ?? 1296).toLocaleString()} hrs
           </div>
         </div>
 
-        <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
-          <span className="text-slate-600 text-xs font-semibold flex items-center gap-1.5 mb-1">
-            <Fuel className="w-4 h-4 text-purple-600" /> Fuel Wastage Prevented
+        <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 shadow-xs">
+          <span className="text-slate-700 text-xs font-bold flex items-center gap-1.5 mb-1.5 uppercase">
+            <Fuel className="w-4 h-4 text-purple-600" /> Fuel Saved
           </span>
-          <div className="text-2xl font-extrabold text-purple-700 font-mono">
+          <div className="text-2xl sm:text-3xl font-black text-purple-700 font-mono">
             {(kpis.fuel_wastage_prevented_litres ?? 14200).toLocaleString()} L
           </div>
         </div>
 
-        <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
-          <span className="text-slate-600 text-xs font-semibold flex items-center gap-1.5 mb-1">
+        <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 shadow-xs">
+          <span className="text-slate-700 text-xs font-bold flex items-center gap-1.5 mb-1.5 uppercase">
             <IndianRupee className="w-4 h-4 text-amber-600" /> Economic Loss Averted
           </span>
-          <div className="text-2xl font-extrabold text-amber-700 font-mono">
+          <div className="text-2xl sm:text-3xl font-black text-amber-700 font-mono">
             ₹{kpis.economic_loss_averted_cr_inr ?? 14.8} Cr
           </div>
         </div>

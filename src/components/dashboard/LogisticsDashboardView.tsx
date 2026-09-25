@@ -154,41 +154,36 @@ export const LogisticsDashboardView: React.FC<Props> = ({
   ];
 
   return (
-    <div className="dashboard-page space-y-4 max-w-[1600px] mx-auto p-4 sm:p-6">
+    <div className="dashboard-page space-y-4 max-w-[1600px] mx-auto p-3 sm:p-6">
       {/* Top Heading */}
-      <div className="page-heading flex flex-wrap items-center justify-between gap-3 pb-2 border-b border-slate-200">
+      <div className="page-heading flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-200">
         <div>
-          <p className="eyebrow text-xs uppercase tracking-wider text-teal-700 font-bold">
+          <p className="eyebrow text-xs uppercase tracking-wider text-teal-700 font-extrabold">
             North Eastern Region · Multimodal Operations
           </p>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-0.5">
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mt-0.5">
             Logistics Command Center
           </h1>
-          <span className="text-xs text-slate-500 font-medium">
-            End-to-end corridor accessibility, shortage runway intelligence, and multimodal rerouting.
-          </span>
         </div>
         <div className="flex items-center gap-2">
           {onTriggerLandslideSimulation && (
             <button
               onClick={onTriggerLandslideSimulation}
               disabled={isSimulating}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-red-600 text-white hover:bg-red-700 active:scale-95 transition-all shadow-sm border border-red-500/50 disabled:opacity-50"
+              className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-extrabold rounded-xl bg-red-600 text-white hover:bg-red-700 active:scale-95 transition-all shadow-xs border border-red-500/50 disabled:opacity-50"
             >
-              <AlertTriangle size={14} className={isSimulating ? 'animate-spin' : ''} />
+              <AlertTriangle size={16} className={isSimulating ? 'animate-spin' : ''} />
               {isSimulating ? 'Simulating Landslide...' : 'Simulate NH-6 Landslide'}
             </button>
           )}
-          <button className="outline-button text-xs flex items-center gap-1.5" onClick={onRefresh}>
-            <RefreshCw size={14} /> Refresh data
+          <button className="outline-button text-xs font-bold flex items-center gap-1.5 px-3 py-2 rounded-xl border border-slate-300 bg-white text-slate-800 hover:bg-slate-50 transition-colors" onClick={onRefresh}>
+            <RefreshCw size={14} /> Refresh Data
           </button>
         </div>
       </div>
 
-      {/* KPI Cards: Active Deliveries, Critical Deliveries, High-Risk Corridors, Active Disruptions, Shortage-Risk Locations, Assets in Transit */}
+      {/* KPI Cards */}
       <KpiCards vehicles={vehicles} corridors={corridors} alerts={alerts} shortageCount={4} />
-
-
 
       {/* Main Command Grid */}
       <div className="command-grid">
@@ -212,37 +207,32 @@ export const LogisticsDashboardView: React.FC<Props> = ({
           <div className="logistics-intelligence-section rounded-xl border border-slate-200 bg-white p-4 shadow-sm text-slate-900">
             <div className="flex flex-wrap items-center justify-between gap-2 pb-3 mb-3 border-b border-slate-200">
               <div className="flex items-center gap-2">
-                <span className="p-1.5 rounded-lg bg-blue-50 text-blue-600 border border-blue-200">
-                  <Layers size={18} />
+                <span className="p-2 rounded-xl bg-blue-50 text-blue-600 border border-blue-200">
+                  <Layers size={20} />
                 </span>
-                <div>
-                  <h3 className="text-base font-semibold text-slate-900 tracking-tight">
-                    Logistics Intelligence & Route Recommendations
-                  </h3>
-                </div>
+                <h3 className="text-base font-extrabold text-slate-900 tracking-tight">
+                  Logistics Intelligence
+                </h3>
               </div>
-              <span className="text-[10px] font-semibold uppercase px-2 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200">
-                Demo / Representative Data
-              </span>
             </div>
 
             <div className="space-y-3">
               {intelligenceCards.map((card) => (
                 <div
                   key={card.shipmentId}
-                  className="rounded-lg border border-slate-200 bg-slate-50/80 p-3.5 hover:border-slate-300 transition-colors"
+                  className="rounded-xl border border-slate-200 bg-slate-50/80 p-4 hover:border-slate-300 transition-colors"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold text-slate-900 tracking-wide">
+                      <span className="text-xs font-black text-slate-900 tracking-wide">
                         {card.cargoTitle}
                       </span>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+                      <span className="text-xs font-mono px-2 py-0.5 rounded-lg bg-slate-100 text-slate-700 border border-slate-200 font-bold">
                         {card.shipmentId}
                       </span>
                     </div>
                     <span
-                      className={`text-[10px] font-bold px-2 py-0.5 rounded border uppercase ${
+                      className={`text-xs font-black px-2 py-0.5 rounded-lg border uppercase ${
                         card.priority === 'URGENT'
                           ? 'bg-rose-50 text-rose-700 border-rose-200'
                           : 'bg-amber-50 text-amber-700 border-amber-200'
@@ -253,29 +243,29 @@ export const LogisticsDashboardView: React.FC<Props> = ({
                   </div>
 
                   {/* 4 Multi-criteria dimensions */}
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-2.5 text-xs bg-white p-2.5 rounded-md border border-slate-200">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-2.5 text-xs bg-white p-3 rounded-xl border border-slate-200 font-bold">
                     <div>
-                      <span className="text-[10px] text-slate-500 block font-medium">1. Stock Runway</span>
-                      <strong className={`text-xs ${card.stockRemainingDays <= 4 ? 'text-rose-600 font-bold' : 'text-slate-800'}`}>
-                        {card.stockRemainingDays} days remaining
+                      <span className="text-slate-500 block uppercase text-[11px]">Stock</span>
+                      <strong className={`text-xs font-mono ${card.stockRemainingDays <= 4 ? 'text-rose-700 font-black' : 'text-slate-900'}`}>
+                        {card.stockRemainingDays}d remaining
                       </strong>
                     </div>
                     <div>
-                      <span className="text-[10px] text-slate-500 block font-medium">2. Supply / Shortage Risk</span>
-                      <strong className={`text-xs ${card.shortageRisk === 'CRITICAL' ? 'text-rose-600 font-bold' : 'text-amber-700'}`}>
-                        {card.shortageRisk} Risk (ETA: {card.expectedDeliveryDays}d)
+                      <span className="text-slate-500 block uppercase text-[11px]">Shortage</span>
+                      <strong className={`text-xs ${card.shortageRisk === 'CRITICAL' ? 'text-rose-700 font-black' : 'text-amber-700'}`}>
+                        {card.shortageRisk} ({card.expectedDeliveryDays}d ETA)
                       </strong>
                     </div>
                     <div>
-                      <span className="text-[10px] text-slate-500 block font-medium">3. Current Road Risk</span>
-                      <strong className="text-xs text-rose-700 font-semibold truncate block">
+                      <span className="text-slate-500 block uppercase text-[11px]">Road Risk</span>
+                      <strong className="text-xs text-rose-700 font-bold truncate block">
                         {card.currentRoadRisk}
                       </strong>
                     </div>
                     <div>
-                      <span className="text-[10px] text-slate-500 block font-medium">4. Recommended Mode</span>
-                      <strong className="text-xs text-blue-700 font-bold flex items-center gap-1">
-                        <Zap size={11} className="text-amber-500" />
+                      <span className="text-slate-500 block uppercase text-[11px]">Recommended</span>
+                      <strong className="text-xs text-blue-700 font-black flex items-center gap-1">
+                        <Zap size={14} className="text-amber-500" />
                         {card.recommendedMode}
                       </strong>
                     </div>

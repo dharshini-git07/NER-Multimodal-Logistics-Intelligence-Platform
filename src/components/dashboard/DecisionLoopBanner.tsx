@@ -62,39 +62,37 @@ export const DecisionLoopBanner: React.FC<DecisionLoopBannerProps> = ({
       {/* Header Bar */}
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-teal-200/80 pb-2.5">
         <div className="flex items-center gap-2">
-          <span className="p-1.5 rounded-lg bg-teal-100 text-teal-800 border border-teal-300 animate-pulse">
-            <Zap size={16} />
+          <span className="p-2 rounded-xl bg-teal-100 text-teal-800 border border-teal-300 animate-pulse">
+            <Zap size={18} />
           </span>
-          <div>
-            <h3 className="text-xs font-extrabold text-slate-900 tracking-wide uppercase flex items-center gap-2">
-              NER-SETU Decision Loop
-              <span className="text-[10px] bg-teal-100 text-teal-900 px-2 py-0.5 rounded border border-teal-300 font-mono font-bold">
-                Guwahati ➔ Imphal
-              </span>
-            </h3>
-          </div>
+          <h3 className="text-xs font-black text-slate-900 tracking-wide uppercase flex items-center gap-2">
+            Decision Loop
+            <span className="text-xs bg-teal-100 text-teal-900 px-2 py-0.5 rounded-lg border border-teal-300 font-mono font-bold">
+              Guwahati ➔ Imphal
+            </span>
+          </h3>
         </div>
         <div className="flex items-center gap-2">
           {onViewMap && (
             <button
               onClick={onViewMap}
-              className="px-2.5 py-1 text-xs rounded-lg bg-teal-700 hover:bg-teal-800 text-white font-bold transition shadow-xs"
+              className="px-3 py-1.5 text-xs rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-extrabold transition shadow-xs active:scale-95"
             >
               View Rerouted Map ➔
             </button>
           )}
           <button
             onClick={onDismiss}
-            className="p-1 text-slate-400 hover:text-slate-800 rounded-lg transition"
+            className="p-1.5 text-slate-400 hover:text-slate-800 rounded-lg transition"
             title="Dismiss notification"
           >
-            <X size={16} />
+            <X size={18} />
           </button>
         </div>
       </div>
 
       {/* 5-Step Pipeline */}
-      <div className="grid grid-cols-1 sm:grid-cols-5 gap-2">
+      <div className="grid grid-cols-1 sm:grid-cols-5 gap-2.5">
         {steps.map((st) => {
           const isDone = stage >= st.num;
           const isCurrent = stage === st.num;
@@ -103,7 +101,7 @@ export const DecisionLoopBanner: React.FC<DecisionLoopBannerProps> = ({
           return (
             <div
               key={st.num}
-              className={`p-2.5 rounded-lg border transition-all ${
+              className={`p-3 rounded-xl border transition-all ${
                 isCurrent
                   ? 'bg-white border-teal-500 shadow-sm scale-[1.01]'
                   : isDone
@@ -112,20 +110,20 @@ export const DecisionLoopBanner: React.FC<DecisionLoopBannerProps> = ({
               }`}
             >
               <div className="flex items-center justify-between gap-1 mb-1">
-                <span className="text-[10px] font-mono font-bold text-slate-500">
+                <span className="text-xs font-mono font-bold text-slate-500 uppercase">
                   STEP 0{st.num}
                 </span>
                 {isDone ? (
-                  <CheckCircle2 size={12} className="text-emerald-600" />
+                  <CheckCircle2 size={14} className="text-emerald-600" />
                 ) : (
-                  <span className="w-2 h-2 rounded-full bg-slate-300" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
                 )}
               </div>
-              <div className="flex items-center gap-1.5 font-bold text-xs text-slate-900">
-                <StepIcon size={14} className={st.color} />
+              <div className="flex items-center gap-1.5 font-extrabold text-xs text-slate-900">
+                <StepIcon size={16} className={st.color} />
                 <span className="truncate">{st.name}</span>
               </div>
-              <p className="text-[10px] text-slate-600 mt-1 font-medium leading-tight truncate">
+              <p className="text-xs text-slate-700 mt-1 font-bold truncate">
                 {st.detail}
               </p>
             </div>
@@ -135,19 +133,19 @@ export const DecisionLoopBanner: React.FC<DecisionLoopBannerProps> = ({
 
       {/* Rerouted Shipment Summary Strip */}
       {affectedVehicle && (
-        <div className="p-2 rounded-lg bg-white border border-teal-200 flex flex-wrap items-center justify-between gap-2 text-xs">
+        <div className="p-3 rounded-xl bg-white border border-teal-200 flex flex-wrap items-center justify-between gap-2 text-xs font-bold">
           <div className="flex items-center gap-2">
-            <span className="text-slate-500 text-[11px]">Shipment:</span>
-            <strong className="text-slate-900 font-mono text-xs font-bold">{affectedVehicle.plate_number || 'MED-IMPHAL-001'}</strong>
+            <span className="text-slate-500 uppercase">Shipment:</span>
+            <strong className="text-slate-900 font-mono text-xs font-black">{affectedVehicle.plate_number || 'MED-IMPHAL-001'}</strong>
             <span className="text-slate-300">|</span>
-            <span className="text-slate-700 font-semibold text-xs">{affectedVehicle.cargo_type}</span>
+            <span className="text-slate-700 uppercase">{affectedVehicle.cargo_type}</span>
           </div>
-          <div className="flex items-center gap-3 text-[11px] font-medium">
+          <div className="flex items-center gap-3 text-xs">
             <span className="text-slate-500">
-              Mode: <strong className="text-purple-700 uppercase font-bold">{affectedVehicle.current_mode}</strong>
+              Mode: <strong className="text-purple-700 uppercase font-black">{affectedVehicle.current_mode}</strong>
             </span>
             <span className="text-slate-500">
-              ETA: <strong className="text-emerald-700 font-bold">{Math.floor((affectedVehicle.eta_minutes || 0)/60)}h {(affectedVehicle.eta_minutes || 0)%60}m</strong>
+              ETA: <strong className="text-emerald-700 font-black">{Math.floor((affectedVehicle.eta_minutes || 0)/60)}h {(affectedVehicle.eta_minutes || 0)%60}m</strong>
             </span>
           </div>
         </div>

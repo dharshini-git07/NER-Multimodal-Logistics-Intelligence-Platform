@@ -206,7 +206,7 @@ export const LiveFleetTracker: React.FC<LiveFleetTrackerProps> = ({
                     {/* Status / Risk Badge Button */}
                     <button
                       onClick={() => toggleExpand(v.id)}
-                      className={`text-[11px] font-bold px-2 py-0.5 rounded-lg border uppercase transition truncate max-w-[140px] ${getStatusBadge(v)}`}
+                      className={`text-xs font-black px-2.5 py-1 rounded-lg border uppercase transition truncate max-w-[140px] ${getStatusBadge(v)}`}
                       title={v.status.replace(/_/g, ' ')}
                     >
                       {v.status.replace(/_/g, ' ')}
@@ -215,7 +215,7 @@ export const LiveFleetTracker: React.FC<LiveFleetTrackerProps> = ({
                     {/* Dropdown Chevron Toggle Button */}
                     <button
                       onClick={() => toggleExpand(v.id)}
-                      className="p-1 rounded-lg bg-slate-50 border border-slate-300 text-slate-700 hover:bg-slate-100 transition shrink-0"
+                      className="p-1.5 rounded-lg bg-slate-50 border border-slate-300 text-slate-700 hover:bg-slate-100 transition shrink-0"
                       title={isExpanded ? 'Hide vehicle details' : 'Show vehicle details'}
                     >
                       {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -227,47 +227,47 @@ export const LiveFleetTracker: React.FC<LiveFleetTrackerProps> = ({
                 {isExpanded && (
                   <div className="mt-3 pt-3 border-t border-slate-200 space-y-3 animate-in fade-in duration-200">
                     {/* Live GPS Coordinates */}
-                    <div className="flex items-center justify-between text-xs text-slate-600 font-mono bg-slate-50 px-2.5 py-1.5 rounded-xl border border-slate-200">
-                      <span className="flex items-center gap-1.5 text-slate-800 font-semibold">
-                        <MapPin className="w-3.5 h-3.5 text-blue-600" />
+                    <div className="flex items-center justify-between text-xs text-slate-700 font-mono bg-slate-50 px-3 py-2 rounded-xl border border-slate-200 font-bold">
+                      <span className="flex items-center gap-1.5 text-slate-900 font-bold">
+                        <MapPin className="w-4 h-4 text-blue-600" />
                         {v.current_lat.toFixed(4)}°N, {v.current_lng.toFixed(4)}°E
                       </span>
-                      <span className="text-slate-500 font-medium">
-                        {v.breadcrumb_trail ? `${v.breadcrumb_trail.length} waypoints` : 'GPS Active'}
+                      <span className="text-slate-600 font-extrabold uppercase">
+                        {v.breadcrumb_trail ? `${v.breadcrumb_trail.length} GPS` : 'GPS Active'}
                       </span>
                     </div>
 
-                    <div className="font-semibold text-slate-800 text-xs">{v.vehicle_type}</div>
+                    <div className="font-extrabold text-slate-900 text-xs">{v.vehicle_type}</div>
 
                     {/* Cargo & Mode Bar */}
-                    <div className="flex flex-wrap items-center justify-between gap-1 text-xs text-slate-700 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                    <div className="flex flex-wrap items-center justify-between gap-1 text-xs text-slate-800 bg-slate-50 p-3 rounded-xl border border-slate-200 font-bold">
                       <div>
-                        <span className="text-slate-500 font-medium">Cargo:</span>{' '}
-                        <span className="text-slate-900 font-bold">{v.cargo_type}</span>
-                        {v.cargo_weight_tons && <span className="text-blue-700 font-mono font-bold ml-1">({v.cargo_weight_tons} MT)</span>}
+                        <span className="text-slate-500 uppercase">Cargo:</span>{' '}
+                        <span className="text-slate-900 font-black">{v.cargo_type}</span>
+                        {v.cargo_weight_tons && <span className="text-blue-700 font-mono font-black ml-1">({v.cargo_weight_tons} MT)</span>}
                       </div>
-                      <span className="text-xs font-bold px-2 py-0.5 rounded bg-purple-100 text-purple-800 border border-purple-200 uppercase">
+                      <span className="text-xs font-black px-2 py-0.5 rounded-lg bg-purple-100 text-purple-800 border border-purple-200 uppercase">
                         {v.current_mode || 'ROAD'}
                       </span>
                     </div>
 
                     {/* Telemetry Stats Grid */}
-                    <div className="grid grid-cols-4 gap-2 bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs">
+                    <div className="grid grid-cols-4 gap-2 bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs font-bold">
                       <div>
-                        <span className="text-slate-500 block text-xs font-medium">Speed</span>
-                        <span className="font-mono font-bold text-slate-900">{v.speed_kmh} km/h</span>
+                        <span className="text-slate-500 block text-xs uppercase">Speed</span>
+                        <span className="font-mono font-black text-slate-900">{v.speed_kmh} k/h</span>
                       </div>
                       <div>
-                        <span className="text-slate-500 block text-xs font-medium">Mode</span>
-                        <span className="font-mono font-bold text-purple-700">{v.current_mode || 'ROAD'}</span>
+                        <span className="text-slate-500 block text-xs uppercase">Mode</span>
+                        <span className="font-mono font-black text-purple-700">{v.current_mode || 'ROAD'}</span>
                       </div>
                       <div>
-                        <span className="text-slate-500 block text-xs font-medium">Distance</span>
-                        <span className="font-mono font-bold text-blue-700">{v.distance_remaining_km ?? '--'} km</span>
+                        <span className="text-slate-500 block text-xs uppercase">Dist</span>
+                        <span className="font-mono font-black text-blue-700">{v.distance_remaining_km ?? '--'} km</span>
                       </div>
                       <div>
-                        <span className="text-slate-500 block text-xs font-medium">ETA</span>
-                        <span className="font-mono font-bold text-emerald-700">{Math.floor((v.eta_minutes || 0) / 60)}h {(v.eta_minutes || 0) % 60}m</span>
+                        <span className="text-slate-500 block text-xs uppercase">ETA</span>
+                        <span className="font-mono font-black text-emerald-700">{Math.floor((v.eta_minutes || 0) / 60)}h {(v.eta_minutes || 0) % 60}m</span>
                       </div>
                     </div>
 
