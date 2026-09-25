@@ -653,43 +653,47 @@ export const LiveMap: React.FC<LiveMapProps> = ({
         {/* Incidents / Hazard Markers */}
         {incidentsVisible &&
           safeIncidents
-            .filter((item) => item && typeof item.latitude === 'number' && typeof item.longitude === 'number' && !isNaN(item.latitude) && !isNaN(item.longitude))
-            .map((item) => (
-              <Marker key={item.id} position={[item.latitude, item.longitude]} icon={incidentIcon(item)}>
-                <Popup>
-                  <b>{item.category}</b>
-                  <br />
-                  {item.location_name}
-                  <br />
-                  {item.description || 'Field report received.'}
-                  <br />
-                  <small>
-                    {item.status} · clearance {item.clearance_eta_hours}h
-                  </small>
-                  <div className="popup-actions">
-                    {onUpvoteIncident && (
-                      <button onClick={() => onUpvoteIncident(item.id)}>Confirm ({item.upvotes})</button>
-                    )}
-                    {onVerifyIncident && item.status === 'REPORTED' && (
-                      <button onClick={() => onVerifyIncident(item.id)}>Verify</button>
-                    )}
-                  </div>
-                </Popup>
-              </Marker>
-            ))}
+            .filter((item) => item && (typeof item.latitude === 'number' || typeof item.lat === 'number'))
+            .map((item) => {
+              const latVal = item.latitude ?? item.lat ?? 0;
+              const lngVal = item.longitude ?? item.lng ?? 0;
+              return (
+                <Marker key={item.id} position={[latVal, lngVal]} icon={incidentIcon(item)}>
+                  <Popup>
+                    <b>{item.category || item.incident_type || 'Incident'}</b>
+                    <br />
+                    {item.location_name}
+                    <br />
+                    {item.description || 'Field report received.'}
+                    <br />
+                    <small>
+                      {item.status} · clearance {item.clearance_eta_hours || 0}h
+                    </small>
+                    <div className="popup-actions">
+                      {onUpvoteIncident && (
+                        <button onClick={() => onUpvoteIncident(item.id)}>Confirm ({item.upvotes ?? item.upvotes_count ?? 0})</button>
+                      )}
+                      {onVerifyIncident && item.status === 'REPORTED' && (
+                        <button onClick={() => onVerifyIncident(item.id)}>Verify</button>
+                      )}
+                    </div>
+                  </Popup>
+                </Marker>
+              );
+            })}
 
         {/* Weather Alerts Markers */}
         {weatherVisible &&
           safeWeather
             .filter((item) => item && typeof item.lat === 'number' && typeof item.lng === 'number' && !isNaN(item.lat) && !isNaN(item.lng))
             .map((item) => (
-              <Marker key={item.location} position={[item.lat, item.lng]} icon={weatherHubIcon()}>
+              <Marker key={item.location || item.location_name || item.id} position={[item.lat, item.lng]} icon={weatherHubIcon()}>
                 <Popup>
-                  <b>{item.location}</b>
+                  <b>{item.location || item.location_name}</b>
                   <br />
-                  {item.weather_condition}
+                  {item.weather_condition || item.condition}
                   <br />
-                  Rainfall: {item.precipitation_mm} mm
+                  Rainfall: {item.precipitation_mm ?? item.rainfall_mm_24h} mm
                 </Popup>
               </Marker>
             ))}

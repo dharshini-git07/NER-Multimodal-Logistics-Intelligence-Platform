@@ -5,6 +5,7 @@ export type CargoPriority = 'BALANCED' | 'SAFETY' | 'SPEED' | 'COST' | 'ECO';
 export interface Vehicle {
   id: string;
   plate_number: string;
+  shipment_id?: string;
   vehicle_type: string;
   cargo_type: string;
   cargo_weight_tons?: number;
@@ -36,20 +37,28 @@ export interface Vehicle {
 
 export interface Incident {
   id: string;
-  title: string;
+  title?: string;
   description: string;
   location_name: string;
   corridor_id?: string;
   segment_id?: string;
-  lat: number;
-  lng: number;
+  lat?: number;
+  lng?: number;
+  latitude?: number;
+  longitude?: number;
   severity: 'MODERATE' | 'SEVERE' | 'CRITICAL_CUTOFF' | string;
-  incident_type: 'LANDSLIDE' | 'FLOOD' | 'BRIDGE_WASHOUT' | 'ROAD_BLOCK' | string;
-  status: 'REPORTED' | 'IN_CLEARANCE' | 'RESOLVED' | string;
-  upvotes_count: number;
+  incident_type?: 'LANDSLIDE' | 'FLOOD' | 'BRIDGE_WASHOUT' | 'ROAD_BLOCK' | string;
+  category?: string;
+  status: 'REPORTED' | 'IN_CLEARANCE' | 'RESOLVED' | 'VERIFIED' | string;
+  upvotes_count?: number;
+  upvotes?: number;
   clearance_eta_hours?: number;
   reported_by?: string;
-  created_at: string;
+  reporter_role?: string;
+  verified_by?: string;
+  photo_url?: string;
+  created_at?: string;
+  reported_at?: string;
 }
 
 export interface Alert {
@@ -65,36 +74,58 @@ export interface Alert {
 }
 
 export interface WeatherData {
-  id: string;
-  location_name: string;
+  id?: string;
+  location_name?: string;
+  location?: string;
   state: string;
   lat: number;
   lng: number;
-  rainfall_mm_24h: number;
-  temp_c: number;
-  wind_kmh: number;
-  condition: string;
-  alert_level: 'NORMAL' | 'HEAVY_RAIN' | 'CLOUDBURST_WARNING';
-  updated_at: string;
+  rainfall_mm_24h?: number;
+  precipitation_mm?: number;
+  temp_c?: number;
+  temperature_c?: number;
+  humidity_pct?: number;
+  wind_kmh?: number;
+  wind_speed_kmh?: number;
+  soil_moisture_pct?: number;
+  condition?: string;
+  weather_condition?: string;
+  warning_level?: string;
+  alert_level?: 'NORMAL' | 'HEAVY_RAIN' | 'CLOUDBURST_WARNING' | string;
+  updated_at?: string;
 }
 
 export interface TransshipmentPoint {
+  hub_id?: string;
   hub_name: string;
+  hub_type?: string;
+  coordinates?: [number, number];
   from_mode: TransportMode;
   to_mode: TransportMode;
   transfer_time_minutes: number;
-  handling_cost_inr: number;
+  handling_cost_inr?: number;
+  handling_fee_inr?: number;
 }
 
 export interface RouteSegmentDetail {
-  segment_id: string;
-  start_name: string;
-  end_name: string;
+  segment_id?: string;
+  segment_name?: string;
+  corridor_name?: string;
+  start_name?: string;
+  end_name?: string;
   distance_km: number;
   mode: TransportMode;
   risk_level: string;
-  travel_time_minutes: number;
+  risk_score?: number;
+  slope_deg?: number;
+  weather?: string;
+  passable?: boolean;
+  operator?: string;
   operator_name?: string;
+  transit_speed_kmh?: number;
+  estimated_cost_inr?: number;
+  carbon_kg?: number;
+  travel_time_minutes?: number;
 }
 
 export interface Segment {
@@ -290,15 +321,24 @@ export interface DisruptionPredictionResponse {
 }
 
 export interface AnalyticsSummary {
-  kpi_metrics: {
-    active_corridors_monitored: number;
-    total_monitored_km: number;
-    active_fleet_trucks: number;
-    freight_safely_rerouted_pct: number;
-    avg_clearance_time_hours: number;
-    estimated_freight_delay_prevented_hrs: number;
-    fuel_wastage_prevented_litres: number;
-    economic_loss_averted_cr_inr: number;
+  total_corridors_monitored?: number;
+  active_convoys_count?: number;
+  disruptions_active?: number;
+  rerouted_convoys_today?: number;
+  high_risk_percentage?: number;
+  avg_delay_minutes?: number;
+  disaster_avoidance_rate_pct?: number;
+  estimated_economic_loss_prevented_cr?: number;
+  kpi_metrics?: {
+    active_corridors_monitored?: number;
+    total_corridors_monitored?: number;
+    total_monitored_km?: number;
+    active_fleet_trucks?: number;
+    freight_safely_rerouted_pct?: number;
+    avg_clearance_time_hours?: number;
+    estimated_freight_delay_prevented_hrs?: number;
+    fuel_wastage_prevented_litres?: number;
+    economic_loss_averted_cr_inr?: number;
   };
   state_vulnerability: {
     state: string;

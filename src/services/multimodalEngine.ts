@@ -5,7 +5,8 @@ import {
   TransportMode,
   CargoPriority,
   CargoCategory,
-  SupplyStockItem
+  SupplyStockItem,
+  ShortageAssessment
 } from '../types';
 
 export const MULTIMODAL_NETWORK_DATA: ModalNetworkData = {

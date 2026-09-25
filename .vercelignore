@@ -1,0 +1,7 @@
+.git
+.github
+node_modules
+dist
+repo_inspect
+ner_logistics.db
+*.log

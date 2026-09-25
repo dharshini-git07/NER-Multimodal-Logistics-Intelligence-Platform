@@ -202,20 +202,26 @@ export const api = {
       const res = await apiClient.post<Incident>('/incidents', data);
       return res.data;
     } catch {
+      const latVal = data.latitude ?? data.lat ?? 25.1328;
+      const lngVal = data.longitude ?? data.lng ?? 92.3582;
       return {
         id: `inc-${Date.now()}`,
         category: (data.category as any) || 'Landslide',
         severity: data.severity || 'CRITICAL_CUTOFF',
         corridor_id: data.corridor_id || 'cor-nh6',
         location_name: data.location_name || 'NH-6 Corridor Section',
-        latitude: data.latitude || 25.1328,
-        longitude: data.longitude || 92.3582,
+        lat: latVal,
+        lng: lngVal,
+        latitude: latVal,
+        longitude: lngVal,
         description: data.description || 'Active slope instability and debris movement reported.',
         reported_by: data.reported_by || 'NER AI Sentinel',
         reporter_role: data.reporter_role || 'BRO Officer',
         status: 'VERIFIED',
         clearance_eta_hours: data.clearance_eta_hours || 12.0,
         upvotes: 1,
+        upvotes_count: 1,
+        created_at: new Date().toISOString(),
         reported_at: new Date().toISOString()
       };
     }
@@ -237,7 +243,7 @@ export const api = {
       return res.data;
     } catch {
       const existing = DEFAULT_INCIDENTS.find(i => i.id === id) || DEFAULT_INCIDENTS[0];
-      return { ...existing, upvotes: existing.upvotes + 1 };
+      return { ...existing, upvotes: (existing.upvotes ?? existing.upvotes_count ?? 0) + 1 };
     }
   },
 

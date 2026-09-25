@@ -87,9 +87,11 @@ export const ShortageIntelligenceView: React.FC<ShortageIntelligenceViewProps> =
       {/* Grid of Shortage Items */}
       <div className={`grid ${compact ? 'grid-cols-1 gap-2.5' : 'grid-cols-1 md:grid-cols-2 gap-3'}`}>
         {filteredItems.map((item) => {
-          const isCriticalBreach = item.expected_delivery_days > item.days_remaining_stock;
-          const deficitDays = Math.max(0, +(item.expected_delivery_days - item.days_remaining_stock).toFixed(1));
-          const locationDisplay = item.city_destination ? `${item.destination_facility} · ${item.city_destination}` : item.destination_facility;
+          const daysStock = item.days_remaining_stock ?? item.days_remaining ?? 0;
+          const riskLevel = item.shortage_risk_level || item.shortage_risk || 'LOW';
+          const isCriticalBreach = item.expected_delivery_days > daysStock;
+          const deficitDays = Math.max(0, +(item.expected_delivery_days - daysStock).toFixed(1));
+          const locationDisplay = item.city_destination ? `${item.destination_facility} · ${item.city_destination}` : (item.destination_facility || item.location_name);
           const recMode = item.recommended_mode ? item.recommended_mode : (isCriticalBreach ? 'HYBRID' : 'ROAD');
 
           return (
@@ -108,8 +110,8 @@ export const ShortageIntelligenceView: React.FC<ShortageIntelligenceViewProps> =
                     <span className="text-xs font-extrabold text-slate-900 tracking-tight uppercase">
                       {item.cargo_category}
                     </span>
-                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded border uppercase ${getRiskBadge(item.shortage_risk_level)}`}>
-                      {item.shortage_risk_level} RISK
+                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded border uppercase ${getRiskBadge(riskLevel)}`}>
+                      {riskLevel} RISK
                     </span>
                   </div>
                   <p className="text-xs text-slate-600 font-semibold mt-0.5">
@@ -127,8 +129,8 @@ export const ShortageIntelligenceView: React.FC<ShortageIntelligenceViewProps> =
               <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-xs py-1.5 font-medium text-slate-700">
                 <div className="flex justify-between items-center">
                   <span className="text-slate-400 text-[11px]">Stock Runway</span>
-                  <strong className={`font-mono ${item.days_remaining_stock <= 4 ? 'text-red-700 font-bold' : 'text-slate-900'}`}>
-                    {item.days_remaining_stock} days
+                  <strong className={`font-mono ${daysStock <= 4 ? 'text-red-700 font-bold' : 'text-slate-900'}`}>
+                    {daysStock} days
                   </strong>
                 </div>
 
