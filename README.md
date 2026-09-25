@@ -1,20 +1,53 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
 
-# Run and deploy your AI Studio app
+### NER-SETU
 
-This contains everything you need to run your app locally.
+### AI-Powered Disaster-Resilient Multimodal Logistics & Accessibility Intelligence
 
-View your app in AI Studio: https://ai.studio/apps/7477fb94-f585-4f99-8687-2baf5dc43e40
+NER-SETU is an AI-powered logistics decision-support platform designed for the **North Eastern Region (NER) of India**. It combines GIS, AI/ML, GPS, weather, terrain, inventory and transport-network intelligence to support reliable delivery of essential goods during disruptions.
 
-## Run Locally
+## 🚀 Key Features
 
-**Prerequisites:**  Node.js
+- 🗺️ GIS-based accessibility & disruption monitoring
+- 🤖 AI-based risk and shortage prediction
+- 📦 Cargo priority & stock-out intelligence
+- 🚚 Multimodal routing: Road, Rail, Air & Waterway
+- 📍 GPS vehicle & shipment tracking
+- 🚨 Real-time risk, shortage & disruption alerts
+- 🔄 Dynamic route and mode adaptation
+- 📱 Geo-tagged field incident reporting
+- 🏥 Critical-goods delivery decision support
 
+## 🔄 Workflow
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+```text
+Sense → Predict → Prioritize → Route → Track → Respond
+
+## 🛠️Technology Stack
+
+Frontend: React, TypeScript, Vite, Tailwind CSS, Leaflet, Recharts
+Backend: Python, FastAPI, NetworkX, WebSocket
+Database: SQLite + SQLAlchemy (MVP), PostgreSQL/PostGIS (production)
+Routing: NetworkX, Dijkstra, OSRM, multimodal network graphs
+AI/ML: Python-based risk prediction and shortage intelligence
+
+👥 Target Users
+MDoNER & Government Authorities
+District Administration & Disaster Teams
+Hospitals & Health Facilities
+Logistics & Fleet Operators
+Field Officers & Transport Stakeholders
+🎯 Impact
+Reduced delivery delays
+Improved supply continuity
+Safer and more resilient routing
+Faster disaster response
+Better accessibility visibility
+⚠️ Prototype Note
+
+The current prototype includes representative/simulated data for selected weather, GPS, transport capacity and disruption scenarios. Production deployment would require validated live integrations with relevant government, weather and transport data sources.
+
+🏆 Core USP
+
+NER-SETU connects transport accessibility, disaster risk, cargo priority and supply-shortage intelligence into one adaptive logistics decision loop.
+
+SIH 2026 | NER-SETU
